@@ -1,0 +1,169 @@
+function SimpleFoldText()
+        return getline(v:foldstart).' '
+endfunction
+
+set foldtext=SimpleFoldText()
+
+function ForLoopKsh(start,end,loopcounter)
+        let l = ""
+        for i in range(a:start,a:end)
+                let l = l." ".i
+
+        endfor
+        exe "normal ofor ".a:loopcounter." in ".l."\n\eado\e"
+        exe "normal o\e"
+        exe "normal odone\eki\t"
+endfunction
+
+
+function KshHeader()
+        exe "normal 1GO#!/usr/bin/ksh\e"
+        exe "normal o#################################################\e"
+        exe "normal oSCRIPT_DIR=\"$(dirname $(which $0))\"\eo\e"
+endfunction
+
+function IfElseKsh(condition)
+        exe "normal aif [[ ".a:condition." ]]\n\eathen\n\e"
+        exe "normal o\eaelse\n\n\e"
+        exe "normal afi\ekkki\t"
+endfunction
+
+function UntilKsh(condition)
+        exe "normal auntil [[ ".a:condition." ]]\n\eado\n\n\e"
+        exe "normal adone\eki\t"
+endfunction
+
+function PerlNew()
+	exe "normal asub new {\e"
+	exe "normal a\nmy ($class_name) = @_;\e"
+	exe "normal a\nmy $self = {};\n\e"
+	exe "normal a\nbless ($self,$class_name);\n\e"
+	exe "normal a\n$self->{_created} = 1;\e"
+	exe "normal a\nreturn $self;\e"
+	exe "normal a\n}\e"
+endfunction
+
+function WhileKsh(condition)
+        exe "normal awhile [[ ".a:condition." ]]\n\eado\n\n\e"
+        exe "normal adone\eki\t"
+endfunction
+
+function IfKsh(condition)
+        exe "normal aif [[ ".a:condition." ]]\n\eathen\n\n\e"
+        exe "normal afi\eki\t"
+endfunction
+
+function ToDevNull()
+        exe "normal a > /dev/null/\e"
+endfunction
+
+function Mkfunc(funcname)
+        exe "normal afunction ".a:funcname."\n\ea{\n\n\e"
+        exe "normal a}\eki\t"
+endfunction
+
+
+function PerlHeader()
+        exe "normal 1GO#!/usr/bin/perl\n\e"
+        exe "normal ouse strict;\e"
+        exe "normal ouse 5.010;\n\e"
+        exe "normal ouse feature qw(say);\n\n\e"
+endfunction
+
+function Mksub(subname)
+        exe "normal asub ".a:subname.""
+        exe "normal o{\n\e"
+        exe "normal o}\eki\t"
+endfunction
+
+function PerlForEach(list,counter)
+        exe "normal aforeach my ".a:counter." (".a:list.")\n\e"
+        exe "normal a{\n\e"
+        exe "normal o}\eki\t"
+endfunction
+
+
+function PerlForEachSortHash(list,counter)
+        exe "normal aforeach my ".a:counter." (sort keys ".a:list.")\n\e"
+        exe "normal a{\n\e"
+        exe "normal o}\eki\t"
+endfunction
+
+function PerlForEachSort(list,counter)
+        exe "normal aforeach my ".a:counter." (sort ".a:list.")\n\e"
+        exe "normal a{\n\e"
+        exe "normal o}\eki\t"
+endfunction
+
+function PerlIf(condition)
+        exe "normal aif (".a:condition.")\n\e"
+        exe "normal a{\n\e"
+        exe "normal a}\eki\t"
+endfunction
+
+function PerlIfElse(condition)
+        exe "normal aif (".a:condition.")\n\e"
+        exe "normal a{\n\e"
+        exe "normal a}\n\e"
+        exe "normal else\n\e"
+        exe "normal a{\n\e"
+        exe "normal a}\eki\t"
+endfunction
+
+
+function PerlStripMultipleSpacesReplaceWithComma(varname)
+        exe "normal a".a:varname."  =~ s/ +/,/g;\n\e"
+endfunction
+
+function PerlStripMultipleSpaces(varname)
+        exe "normal a".a:varname."=~s/ +/ /g;\n\e"
+endfunction
+
+function PerlWhile(condition)
+        exe "normal awhile (".a:condition.")\n\e"
+        exe "normal a{\n\e"
+        exe "normal a}\eki\t"
+endfunction
+
+function PerlInOutFileLoop(infilename,outfilename)
+        exe "normal aopen (INFILE,".a:infilename.") or die $!;\n\e"
+        exe "normal aopen (OUTFILE,\">\",".a:outfilename.") or die $!;\n\e"
+        exe "normal awhile (<INFILE>){\n\n\e"
+        exe "normal a}\n\e"
+        exe "normal aclose(INFILE);\n\e"
+        exe "normal aclose(OUTFILE);\n\ekkkki\t"
+endfunction
+
+function PerlInFileLoop(infilename)
+
+        exe "normal aopen (INFILE,".a:infilename.") or die $!;\n\e"
+        exe "normal awhile (<INFILE>){\n\n\e"
+        exe "normal a}\n\e"
+        exe "normal aclose(INFILE);\n\ekkki\t"
+endfunction
+
+command Header call KshHeader()
+command PHeader call PerlHeader()
+command -nargs=* FLK call ForLoopKsh(<f-args>)
+command -nargs=* FLP call PerlForEach(<f-args>)
+command -nargs=* FLPS call PerlForEachSort(<f-args>)
+command -nargs=* FLPSH call PerlForEachSortHash(<f-args>)
+
+command -nargs=* WIFL call PerlInFileLoop(<q-args>)
+command -nargs=* WIOFL call PerlInOutFileLoop(<f-args>)
+
+command -nargs=* PSS call PerlStripMultipleSpaces(<q-args>)
+command -nargs=* PSSC call PerlStripMultipleSpacesReplaceWithComma(<q-args>)
+command -nargs=* KIF call IfKsh(<q-args>)
+command -nargs=* PIF call PerlIf(<q-args>)
+command -nargs=* KIFE call IfElseKsh(<q-args>)
+command -nargs=* PIFE call PerlIfElse(<q-args>)
+command -nargs=* WLK call WhileKsh(<q-args>)
+command -nargs=* ULK call UntilKsh(<q-args>)
+command -nargs=* WLP call PerlWhile(<q-args>)
+
+command DN call ToDevNull()
+command -nargs=* Mkfunc call Mkfunc(<f-args>)
+command -nargs=* Mksub call Mksub(<f-args>)
+
+
