@@ -64,7 +64,7 @@ function exit_status(){
   else
     PMT="${FGRED}\$${FGNORMAL}"
   fi
-  export PS1="[${FGGREEN}$(hostname --short)${FGNORMAL}]:[${FGYELLOW}\W${FGNORMAL}] ${FGCYAN}$(date +%T:)${FGNORMAL} ${PMT} " 
+  export PS1="[${FGGREEN}\u@$(hostname --short)${FGNORMAL}]:[${FGYELLOW}\W${FGNORMAL}] ${FGCYAN}$(date +%T:)${FGNORMAL} ${PMT} " 
 }
 
 function docker_clean(){
@@ -81,6 +81,6 @@ alias vi=vim
 export PATH=$PATH:/opt/gradle-3.5/bin
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/andrew.g.wardrobe/.sdkman"
-[[ -s "/home/andrew.g.wardrobe/.sdkman/bin/sdkman-init.sh" ]] && source "/home/andrew.g.wardrobe/.sdkman/bin/sdkman-init.sh"
-alias config='/usr/bin/git --git-dir=/home/andrew.g.wardrobe/.cfg/ --work-tree=/home/andrew.g.wardrobe'
+export SDKMAN_DIR="/home/awar/.sdkman"
+[[ -s "/home/awar/.sdkman/bin/sdkman-init.sh" ]] && source "/home/awar/.sdkman/bin/sdkman-init.sh"
+alias config='/usr/bin/git --git-dir=/home/awar/.cfg/ --work-tree=/home/awar'
