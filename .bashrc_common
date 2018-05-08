@@ -80,9 +80,9 @@ if [ -e $HOME/.rbenv ]; then
 fi
   eval "$(rbenv init -)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-if [ -e /home/awar/.sdkman/bin/sdkman-init.sh ]; then
-    export SDKMAN_DIR="/home/awar/.sdkman"
-    [[ -s "/home/awar/.sdkman/bin/sdkman-init.sh" ]] && source "/home/awar/.sdkman/bin/sdkman-init.sh"
+if [ -e "/home/${USER}/.sdkman/bin/sdkman-init.sh" ]; then
+    export SDKMAN_DIR="/home/${USER}/.sdkman"
+    [[ -s "/home/${USER}/.sdkman/bin/sdkman-init.sh" ]] && source "/home/${USER}/.sdkman/bin/sdkman-init.sh"
 fi
 
-alias config='/usr/bin/git --git-dir=/home/awar/.cfg/ --work-tree=/home/awar'
+alias config="/usr/bin/git --git-dir=/home/${USER}/.cfg/ --work-tree=/home/${USER}"
