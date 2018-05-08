@@ -74,6 +74,11 @@ alias grep="grep --color=auto"
 export PATH=$PATH:~/bin:/opt/gradle-3.5/bin
 
 export EDITOR=vi
+
+if [ -e $HOME/.rbenv ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+fi
+  eval "$(rbenv init -)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 if [ -e /home/awar/.sdkman/bin/sdkman-init.sh ]; then
     export SDKMAN_DIR="/home/awar/.sdkman"
