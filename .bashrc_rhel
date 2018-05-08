@@ -12,3 +12,5 @@ if [ -e ~/.bashrc_common ]; then
 fi
 
 export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
+alias install="sudo dnf install -y"
+alias search="sudo dnf search"
