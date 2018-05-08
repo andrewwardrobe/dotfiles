@@ -1,0 +1,14 @@
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+if [ -e ~/.bashrc_common ]; then
+ . ~/.bashrc_common
+fi
+
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
