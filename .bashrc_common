@@ -60,6 +60,11 @@ function exit_status(){
   export PS1="[${FGGREEN}\u@$(hostname --short)${FGNORMAL}]:[${FGYELLOW}\W${FGNORMAL}] ${FGCYAN}$(date +%T:)${FGNORMAL} ${PMT} " 
 }
 
+function tunnel() # $1 tunnel config file, $2 - tunnel host
+{
+ ssh -f $(for i in $(cat $1); do echo -n " -L $i"; done) -N $2
+}
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -77,8 +82,9 @@ export EDITOR=vi
 
 if [ -e $HOME/.rbenv ]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
-fi
   eval "$(rbenv init -)"
+fi
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 if [ -e "/home/${USER}/.sdkman/bin/sdkman-init.sh" ]; then
     export SDKMAN_DIR="/home/${USER}/.sdkman"
