@@ -6,3 +6,6 @@ if [[ "${distro}" == "debian" ]]; then
 else
   . ~/.bashrc_rhel
 fi
+if [ -e ~/.bashrc_extra ]; then
+  . ~/.bashrc_extra
+fi
