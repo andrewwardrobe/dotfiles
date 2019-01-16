@@ -96,3 +96,4 @@ alias config-apply="/usr/bin/git --git-dir=/home/${USER}/.cfg/ --work-tree=/home
 alias colorize="sed 's/^-/\x1b[31m-/;s/^+/\x1b[32m+/;s/^@/\x1b[34m@/;s/$/\x1b[0m/'"
 alias yaml2json="python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'"
 alias json2yaml="python -c 'import json; import sys; import yaml; print yaml.safe_dump(json.loads(str(sys.stdin.read())), default_flow_style=False)'"
+alias inspec="docker run -v $(pwd):/share -v $SSH_AUTH_SOCK:${SSH_AUTH_SOCK} -v ${HOME}/.ssh/:${HOME}/.ssh/ -v /etc/hosts:/etc/hosts -e SSH_AUTH_SOCK=${SSH_AUTH_SOCK} chef/inspec"
